@@ -696,6 +696,131 @@ img { max-width: 100%; display: block; }
 
 .page-top { padding-top: 48px; }
 
+/* Campaigns carousel */
+.campaigns-section {
+  background:
+    radial-gradient(circle at 12% 20%, rgba(29, 78, 216, 0.06), transparent 42%),
+    radial-gradient(circle at 88% 80%, rgba(13, 148, 136, 0.07), transparent 40%),
+    linear-gradient(180deg, #f8fbff 0%, #eef6f4 100%);
+}
+
+.campaign-carousel {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.campaign-viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #0f172a;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.14);
+}
+
+.campaign-track {
+  position: relative;
+  min-height: min(72vw, 520px);
+}
+
+.campaign-slide {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transform: translateX(28px) scale(0.985);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.campaign-slide.is-active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.campaign-image {
+  width: 100%;
+  height: min(62vw, 440px);
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.55s ease;
+}
+
+.campaign-slide.is-active:hover .campaign-image {
+  transform: scale(1.025);
+}
+
+.campaign-caption {
+  display: grid;
+  gap: 4px;
+  padding: 16px 20px 18px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
+  color: #e2e8f0;
+}
+
+.campaign-caption strong {
+  color: #fff;
+  font-size: 16px;
+}
+
+.campaign-caption span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+.campaign-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.campaign-nav {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--primary-dark);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.campaign-nav:hover {
+  transform: translateY(-2px);
+  background: #eff6ff;
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.12);
+}
+
+.campaign-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.campaign-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  background: #bfdbfe;
+  cursor: pointer;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.campaign-dot.is-active {
+  width: 22px;
+  background: var(--primary);
+}
+
 .course-code {
   display: inline-block;
   font-size: 11px;
@@ -919,4 +1044,13 @@ img { max-width: 100%; display: block; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .float-card, .animate-shimmer, .whatsapp-float, .hero-bg { animation: none; }
+  .campaign-slide,
+  .campaign-image,
+  .campaign-nav,
+  .campaign-dot {
+    transition: none;
+  }
+  .campaign-slide.is-active:hover .campaign-image {
+    transform: none;
+  }
 }
