@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css?v=13" />
+  <link rel="stylesheet" href="assets/css/style.css?v=15" />
 </head>
 <body>
   <header class="site-header">
@@ -57,7 +57,16 @@
       </div>
       <div>
         <h4>Hours</h4>
-        <p class="footer-text">Monday – Friday: 7:00 AM – 6:30 PM<br />Saturday – Sunday: 9:00 AM – 4:30 PM</p>
+        <dl class="hours-list footer-text">
+          <div class="hours-row">
+            <dt>Monday – Friday</dt>
+            <dd>7:00 AM – 6:30 PM</dd>
+          </div>
+          <div class="hours-row">
+            <dt>Saturday – Sunday</dt>
+            <dd>9:00 AM – 4:30 PM</dd>
+          </div>
+        </dl>
       </div>
       <div>
         <h4>Contact</h4>
@@ -74,6 +83,6 @@
 
   <div class="toast" id="toast" hidden></div>
 
-  <script type="module" src="assets/js/app.js?v=13"></script>
+  <script type="module" src="assets/js/app.js?v=15"></script>
 </body>
 </html>

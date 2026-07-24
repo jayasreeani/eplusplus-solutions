@@ -20,10 +20,10 @@ const institute = {
   phones: ['+91 94467 24270', '+91 94950 52932', '+91 77368 68688'],
   whatsapp: '919446724270',
   mapsUrl: 'https://maps.google.com/?q=Kajal+Building+Annie+Hall+Road+Palayam+Kozhikode+673002',
-  hours: {
-    weekdays: 'Monday – Friday: 7:00 AM – 6:30 PM',
-    weekends: 'Saturday – Sunday: 9:00 AM – 4:30 PM',
-  },
+  hours: [
+    { days: 'Monday – Friday', time: '7:00 AM – 6:30 PM' },
+    { days: 'Saturday – Sunday', time: '9:00 AM – 4:30 PM' },
+  ],
 };
 
 const aboutText = `With over 20+ years of excellence in computer training, E+++ Solutions is a government-recognized institute under the State of Kerala. We offer a wide range of in-demand courses with NORKA-attested certificates valid for PSC exams, overseas opportunities, and career advancement. Our curriculum combines theory with hands-on, project-based learning, guided by experienced industry professionals — ensuring students gain real-world, job-ready skills.`;
@@ -145,29 +145,19 @@ const otherPrograms = [
   'Fashion Designing',
 ];
 
-const campaigns = [
-  {
-    src: 'assets/images/promo-skill.png',
-    title: 'Skill courses for PSC & careers',
-    caption: 'Government-approved skill training with NCVF, FYUGP, and NORKA attestation support.',
-  },
-  {
-    src: 'assets/images/promo-python.png',
-    title: 'Python Coding summer camp',
-    caption: 'Hands-on coding for students — admissions open with scholarships and fun prizes.',
-  },
-  {
-    src: 'assets/images/promo-itkerala.png',
-    title: 'ITKerala course pathways',
-    caption: 'Rutronix-approved programs from accounting and Python to AI-enabled office skills.',
-  },
-];
-
-let campaignTimer = null;
-
 function addressHtml() {
   const a = institute.address;
   return `${a.line1}<br />${a.line2}<br />${a.city}<br /><em>${a.landmark}</em>`;
+}
+
+function hoursHtml(extraClass = '') {
+  const cls = extraClass ? `hours-list ${extraClass}` : 'hours-list';
+  return `<dl class="${cls}">${institute.hours.map((h) => `
+    <div class="hours-row">
+      <dt>${h.days}</dt>
+      <dd>${h.time}</dd>
+    </div>`).join('')}
+  </dl>`;
 }
 
 function phonesHtml() {
@@ -198,42 +188,6 @@ function syllabusHtml(syllabus) {
         `).join('')}
       </div>
     </div>`;
-}
-
-function campaignsSection() {
-  return `
-    <section class="section campaigns-section reveal" aria-labelledby="campaigns-heading">
-      <div class="container">
-        <div class="section-header">
-          <h2 id="campaigns-heading">Campus campaigns</h2>
-          <p>Recent highlights from our Kozhikode centre — skill training, summer camps, and ITKerala pathways.</p>
-        </div>
-        <div class="campaign-carousel" data-carousel>
-          <div class="campaign-viewport">
-            <div class="campaign-track" data-track>
-              ${campaigns.map((c, i) => `
-                <figure class="campaign-slide${i === 0 ? ' is-active' : ''}" data-slide="${i}">
-                  <img src="${c.src}" alt="${c.title}" class="campaign-image" loading="${i === 0 ? 'eager' : 'lazy'}" />
-                  <figcaption class="campaign-caption">
-                    <strong>${c.title}</strong>
-                    <span>${c.caption}</span>
-                  </figcaption>
-                </figure>
-              `).join('')}
-            </div>
-          </div>
-          <div class="campaign-controls">
-            <button type="button" class="campaign-nav" data-prev aria-label="Previous campaign">‹</button>
-            <div class="campaign-dots" role="tablist" aria-label="Campaign slides">
-              ${campaigns.map((_, i) => `
-                <button type="button" class="campaign-dot${i === 0 ? ' is-active' : ''}" data-dot="${i}" aria-label="Show campaign ${i + 1}" aria-selected="${i === 0}"></button>
-              `).join('')}
-            </div>
-            <button type="button" class="campaign-nav" data-next aria-label="Next campaign">›</button>
-          </div>
-        </div>
-      </div>
-    </section>`;
 }
 
 function courseCard(c, i) {
@@ -310,8 +264,6 @@ function renderHome() {
       </div>
     </section>
 
-    ${campaignsSection()}
-
     <section class="section reveal">
       <div class="container">
         <div class="section-header">
@@ -364,8 +316,7 @@ function renderAbout() {
           <ul class="check-list">${whyChooseUs.map((w) => `<li>${w}</li>`).join('')}</ul>
         </div>
       </div>
-    </section>
-    ${campaignsSection()}`;
+    </section>`;
 }
 
 function renderServices() {
@@ -455,7 +406,7 @@ function renderContact() {
               <div class="info-item"><div class="icon">📞</div><div><strong>Phone</strong><p class="muted">${phonesHtml()}</p></div></div>
               <div class="info-item"><div class="icon">💬</div><div><strong>WhatsApp</strong><p class="muted"><a href="https://wa.me/${institute.whatsapp}" target="_blank" rel="noopener" style="color:inherit">+91 94467 24270</a></p></div></div>
               <div class="info-item"><div class="icon">✉️</div><div><strong>Email</strong><p class="muted"><a href="mailto:${institute.email}" style="color:inherit">${institute.email}</a></p></div></div>
-              <div class="info-item"><div class="icon">🕐</div><div><strong>Hours</strong><p class="muted">${institute.hours.weekdays}<br />${institute.hours.weekends}</p></div></div>
+              <div class="info-item"><div class="icon">🕐</div><div><strong>Hours</strong>${hoursHtml('muted')}</div></div>
               <div class="info-item social-row">
                 <a href="${institute.social.instagramUrl}" target="_blank" rel="noopener" class="social-link">
                   <img src="assets/images/icon-instagram.jpeg" alt="Instagram" /> @${institute.social.instagram}
@@ -510,54 +461,6 @@ function initScrollAnimations() {
   items.forEach((el) => observer.observe(el));
 }
 
-function stopCampaignCarousel() {
-  if (campaignTimer) {
-    clearInterval(campaignTimer);
-    campaignTimer = null;
-  }
-}
-
-function initCampaignCarousel() {
-  stopCampaignCarousel();
-  const root = document.querySelector('[data-carousel]');
-  if (!root) return;
-
-  const slides = [...root.querySelectorAll('[data-slide]')];
-  const dots = [...root.querySelectorAll('[data-dot]')];
-  if (slides.length < 2) return;
-
-  let index = 0;
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const goTo = (next) => {
-    index = (next + slides.length) % slides.length;
-    slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
-    dots.forEach((dot, i) => {
-      const active = i === index;
-      dot.classList.toggle('is-active', active);
-      dot.setAttribute('aria-selected', String(active));
-    });
-  };
-
-  root.querySelector('[data-prev]')?.addEventListener('click', () => goTo(index - 1));
-  root.querySelector('[data-next]')?.addEventListener('click', () => goTo(index + 1));
-  dots.forEach((dot) => {
-    dot.addEventListener('click', () => goTo(Number(dot.dataset.dot)));
-  });
-
-  if (!reduceMotion) {
-    const start = () => {
-      stopCampaignCarousel();
-      campaignTimer = setInterval(() => goTo(index + 1), 5200);
-    };
-    root.addEventListener('mouseenter', stopCampaignCarousel);
-    root.addEventListener('mouseleave', start);
-    root.addEventListener('focusin', stopCampaignCarousel);
-    root.addEventListener('focusout', start);
-    start();
-  }
-}
-
 function bindContactForm() {
   const form = document.getElementById('contact-form');
   form?.addEventListener('submit', (e) => {
@@ -584,10 +487,8 @@ function navigate() {
   });
 
   bindContactForm();
-  stopCampaignCarousel();
   requestAnimationFrame(() => {
     initScrollAnimations();
-    initCampaignCarousel();
   });
   document.getElementById('site-nav')?.classList.remove('open');
 }
