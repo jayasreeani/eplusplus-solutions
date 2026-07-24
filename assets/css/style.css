@@ -54,55 +54,6 @@ img { max-width: 100%; display: block; }
   object-fit: contain;
 }
 
-/* Footer brand — CSS wordmark (JPEG has white canvas; avoid white box on dark footer) */
-.footer-brand-col {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.footer-brand {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  text-decoration: none;
-  margin-bottom: 4px;
-}
-
-.footer-wordmark {
-  display: inline-flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.28em;
-  line-height: 1;
-}
-
-.fw-e {
-  font-size: clamp(1.85rem, 4vw, 2.15rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  font-style: italic;
-  color: #f87171;
-}
-
-.fw-s {
-  font-size: clamp(1.55rem, 3.5vw, 1.85rem);
-  font-weight: 600;
-  font-family: Georgia, "Times New Roman", serif;
-  font-style: italic;
-  color: #93c5fd;
-}
-
-.footer-brand-tag {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #bfdbfe;
-  max-width: 260px;
-  line-height: 1.35;
-}
-
 .footer-logo {
   height: 52px;
   width: auto;
@@ -612,17 +563,6 @@ img { max-width: 100%; display: block; }
 
 .site-footer a:hover { color: #fff; }
 
-.site-footer .footer-brand {
-  display: inline-flex;
-  margin-bottom: 4px;
-  color: inherit;
-  font-size: inherit;
-}
-
-.site-footer .footer-brand:hover {
-  color: inherit;
-}
-
 .site-footer .footer-social a {
   display: inline;
   margin-bottom: 0;
@@ -1041,6 +981,10 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   align-items: stretch;
+}
+
+.course-grid-standard:has(> :nth-child(3)) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .course-btn { padding: 10px 16px; font-size: 13px; }
