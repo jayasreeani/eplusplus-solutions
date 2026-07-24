@@ -5,7 +5,12 @@ const institute = {
   rating: '4.9',
   reviews: '150+',
   email: 'eplusplussolution@gmail.com',
-  social: 'eplusplussolution',
+  social: {
+    instagram: 'eplusplussolution',
+    instagramUrl: 'https://www.instagram.com/eplusplussolution',
+    facebook: 'Eplusplus Solution Computer Institute',
+    facebookUrl: 'https://www.facebook.com/EplusplusSolutionComputerInstitute',
+  },
   address: {
     line1: '2nd Floor, Kajal Building',
     line2: 'Annie Hall Road, Palayam',
@@ -112,6 +117,20 @@ const diplomaCourses = [
     duration: '360 Hours (6 Months)',
     desc: 'Computerized accounting, GST-enabled taxation, Indian & foreign business accounting, and financial report generation.',
     topics: ['Tally Prime with GST', 'ZOHO Books & QuickBooks', 'GCC VAT', 'Indian Business Accounting'],
+  },
+  {
+    code: 'AEPBI',
+    title: 'Advanced Excel and Power BI',
+    eligibility: '10th std passed & above',
+    duration: '360 Hours (6 Months)',
+    desc: 'Build job-ready data skills with Advanced Excel formulas, dashboards, and automation, then create interactive Power BI reports for business insight and decision-making.',
+    topics: [
+      'Advanced Excel formulas & pivot tables',
+      'Charts, dashboards & data cleaning',
+      'Power Query & Power Pivot basics',
+      'Power BI desktop & data modelling',
+      'Interactive reports & DAX essentials',
+    ],
   },
 ];
 
@@ -285,7 +304,7 @@ function renderServices() {
         </div>
         <div class="grid-3">
           ${[
-            { icon: '🎓', title: 'Diploma Programs', desc: 'PGDCA, DCA, CTTC, CWPDE and financial accounting diplomas with structured semesters.' },
+            { icon: '🎓', title: 'Diploma Programs', desc: 'PGDCA, DCA, CTTC, CWPDE, Advanced Excel & Power BI, and financial accounting diplomas with structured semesters.' },
             { icon: '📜', title: 'NORKA Certificates', desc: 'Attested certificates valid for PSC exams, overseas jobs, and government applications.' },
             { icon: '💼', title: 'Placement Support', desc: 'Career guidance and placement assistance for job-ready graduates.' },
             { icon: '🖥️', title: 'Lab Training', desc: 'Hands-on practical sessions with project work and seminar components.' },
@@ -366,8 +385,11 @@ function renderContact() {
               <div class="info-item"><div class="icon">✉️</div><div><strong>Email</strong><p class="muted"><a href="mailto:${institute.email}" style="color:inherit">${institute.email}</a></p></div></div>
               <div class="info-item"><div class="icon">🕐</div><div><strong>Hours</strong><p class="muted">${institute.hours.weekdays}<br />${institute.hours.weekends}</p></div></div>
               <div class="info-item social-row">
-                <a href="https://www.instagram.com/eplusplussolution" target="_blank" rel="noopener" class="social-link">
-                  <img src="assets/images/icon-instagram.jpeg" alt="Instagram" /> @eplusplussolution
+                <a href="${institute.social.instagramUrl}" target="_blank" rel="noopener" class="social-link">
+                  <img src="assets/images/icon-instagram.jpeg" alt="Instagram" /> @${institute.social.instagram}
+                </a>
+                <a href="${institute.social.facebookUrl}" target="_blank" rel="noopener" class="social-link">
+                  <span class="social-fb-icon" aria-hidden="true">f</span> Facebook
                 </a>
               </div>
             </div>

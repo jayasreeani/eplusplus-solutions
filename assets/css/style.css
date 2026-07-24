@@ -93,7 +93,13 @@ img { max-width: 100%; display: block; }
   color: var(--primary-dark);
 }
 
-.social-row { margin-top: 8px; }
+.social-row {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  align-items: center;
+}
 
 .social-link {
   display: inline-flex;
@@ -107,6 +113,20 @@ img { max-width: 100%; display: block; }
   width: 32px;
   height: 32px;
   border-radius: 8px;
+}
+
+.social-fb-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #1877f2;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: Arial, sans-serif;
+  line-height: 1;
 }
 
 .whatsapp-icon {
@@ -522,6 +542,19 @@ img { max-width: 100%; display: block; }
   line-height: 1.7;
 }
 
+.footer-social {
+  margin-top: 10px;
+}
+
+.footer-social a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.footer-social a:hover {
+  text-decoration: underline;
+}
+
 .site-footer h4 {
   color: #fff;
   margin-bottom: 12px;
@@ -786,7 +819,10 @@ img { max-width: 100%; display: block; }
   color: #fff;
 }
 
-.cta-card p { opacity: 0.92; margin-top: 8px; }
+.cta-card p {
+  opacity: 0.92;
+  margin-top: 8px;
+}
 
 .link-arrow {
   display: inline-block;
