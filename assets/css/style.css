@@ -563,6 +563,17 @@ img { max-width: 100%; display: block; }
 
 .site-footer a:hover { color: #fff; }
 
+.site-footer .footer-brand {
+  display: inline-flex;
+  margin-bottom: 2px;
+  color: inherit;
+  font-size: inherit;
+}
+
+.site-footer .footer-brand:hover {
+  color: inherit;
+}
+
 .site-footer .footer-social a {
   display: inline;
   margin-bottom: 0;
