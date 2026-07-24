@@ -54,14 +54,57 @@ img { max-width: 100%; display: block; }
   object-fit: contain;
 }
 
-.footer-logo {
-  height: 52px;
-  width: auto;
+/* Footer brand: JPEG has solid white canvas — use CSS wordmark on dark footer */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-decoration: none;
+  margin-bottom: 2px;
+}
+
+.footer-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.28em;
+  line-height: 1;
+}
+
+.fw-e {
+  font-size: clamp(1.85rem, 4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-style: italic;
+  color: #f87171;
+}
+
+.fw-s {
+  font-size: clamp(1.55rem, 3.5vw, 1.9rem);
+  font-weight: 600;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  color: #93c5fd;
+}
+
+.footer-brand-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #bfdbfe;
   max-width: 280px;
-  object-fit: contain;
-  margin-bottom: 14px;
-  display: block;
-  border-radius: 6px;
+  line-height: 1.35;
+}
+
+.footer-logo {
+  display: none;
 }
 
 .rutronix-emblem {
