@@ -16,7 +16,8 @@ const institute = {
   whatsapp: '919446724270',
   mapsUrl: 'https://maps.google.com/?q=Kajal+Building+Annie+Hall+Road+Palayam+Kozhikode+673002',
   hours: {
-    all: 'Monday – Sunday: 9:00 AM – 6:30 PM',
+    weekdays: 'Monday – Friday: 7:00 AM – 6:30 PM',
+    weekends: 'Saturday – Sunday: 9:00 AM – 4:30 PM',
   },
 };
 
@@ -33,12 +34,52 @@ const whyChooseUs = [
 
 const diplomaCourses = [
   {
-    code: 'PDCFA',
+    code: 'PGDCA',
     title: 'Post Graduate Diploma in Computer Applications',
     eligibility: 'Any Degree',
     duration: '720 Hours (1 Year)',
     desc: 'Core concepts of computer applications via logic building, database management, communication networks, website designing, and business applications through program coding.',
     topics: ['Python, C++/Java', 'SQL & RDBMS', 'Web Design & PHP/ASP.Net', 'VB.Net / Android', 'OS, Office Suite & Advanced Excel'],
+    syllabus: [
+      {
+        semester: 'Semester 1',
+        theory: {
+          label: 'Theory 1',
+          items: [
+            'Fundamentals of Computer, OS, Internet & Office Suite',
+            'Python, C++/ Java & Data Structures',
+            'System Engineering, RDBMS & SQL',
+          ],
+        },
+        lab: {
+          label: 'Lab 1',
+          items: [
+            'OS, Office Suite & Advanced Excel',
+            'Python, C++/Java',
+            'SQL',
+          ],
+        },
+      },
+      {
+        semester: 'Semester 2',
+        theory: {
+          label: 'Theory 2',
+          items: [
+            'Web design and PHP/ASP.Net',
+            'VB.net',
+            'Data Communication and Computer Networks, Android Programming',
+          ],
+        },
+        lab: {
+          label: 'Lab 2',
+          items: [
+            'Web design & PHP/ASP.Net',
+            'VB.Net / Android Programming',
+            'Project & Seminar',
+          ],
+        },
+      },
+    ],
   },
   {
     code: 'CTTC',
@@ -97,9 +138,30 @@ function phonesHtml() {
   }).join('<br />');
 }
 
+function syllabusHtml(syllabus) {
+  if (!syllabus?.length) return '';
+  return `
+    <div class="course-syllabus">
+      <h4>Syllabus</h4>
+      ${syllabus.map((sem) => `
+        <div class="syllabus-semester">
+          <p class="syllabus-sem-title">${sem.semester}</p>
+          <div class="syllabus-block">
+            <p class="syllabus-label">${sem.theory.label}</p>
+            <ul>${sem.theory.items.map((item) => `<li>${item}</li>`).join('')}</ul>
+          </div>
+          <div class="syllabus-block">
+            <p class="syllabus-label">${sem.lab.label}</p>
+            <ul>${sem.lab.items.map((item) => `<li>${item}</li>`).join('')}</ul>
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
 function courseCard(c, i) {
   return `
-    <article class="card reveal" style="--delay:${i * 80}ms">
+    <article class="card reveal${c.syllabus ? ' card-with-syllabus' : ''}" style="--delay:${i * 80}ms">
       <span class="course-code">${c.code}</span>
       <h3>${c.title}</h3>
       <p>${c.desc}</p>
@@ -107,7 +169,9 @@ function courseCard(c, i) {
         <span class="tag">${c.eligibility}</span>
         <span class="tag">${c.duration}</span>
       </div>
-      <ul class="course-topics">${c.topics.map((t) => `<li>${t}</li>`).join('')}</ul>
+      ${c.syllabus
+        ? syllabusHtml(c.syllabus)
+        : `<ul class="course-topics">${c.topics.map((t) => `<li>${t}</li>`).join('')}</ul>`}
       <a href="#/contact" class="btn btn-primary btn-sm course-btn">Enquire Now</a>
     </article>`;
 }
@@ -221,7 +285,7 @@ function renderServices() {
         </div>
         <div class="grid-3">
           ${[
-            { icon: '🎓', title: 'Diploma Programs', desc: 'PDCFA, DCA, CTTC, CWPDE and financial accounting diplomas with structured semesters.' },
+            { icon: '🎓', title: 'Diploma Programs', desc: 'PGDCA, DCA, CTTC, CWPDE and financial accounting diplomas with structured semesters.' },
             { icon: '📜', title: 'NORKA Certificates', desc: 'Attested certificates valid for PSC exams, overseas jobs, and government applications.' },
             { icon: '💼', title: 'Placement Support', desc: 'Career guidance and placement assistance for job-ready graduates.' },
             { icon: '🖥️', title: 'Lab Training', desc: 'Hands-on practical sessions with project work and seminar components.' },
@@ -300,7 +364,7 @@ function renderContact() {
               <div class="info-item"><div class="icon">📞</div><div><strong>Phone</strong><p class="muted">${phonesHtml()}</p></div></div>
               <div class="info-item"><div class="icon">💬</div><div><strong>WhatsApp</strong><p class="muted"><a href="https://wa.me/${institute.whatsapp}" target="_blank" rel="noopener" style="color:inherit">+91 94467 24270</a></p></div></div>
               <div class="info-item"><div class="icon">✉️</div><div><strong>Email</strong><p class="muted"><a href="mailto:${institute.email}" style="color:inherit">${institute.email}</a></p></div></div>
-              <div class="info-item"><div class="icon">🕐</div><div><strong>Hours</strong><p class="muted">${institute.hours.all}</p></div></div>
+              <div class="info-item"><div class="icon">🕐</div><div><strong>Hours</strong><p class="muted">${institute.hours.weekdays}<br />${institute.hours.weekends}</p></div></div>
               <div class="info-item social-row">
                 <a href="https://www.instagram.com/eplusplussolution" target="_blank" rel="noopener" class="social-link">
                   <img src="assets/images/icon-instagram.jpeg" alt="Instagram" /> @eplusplussolution

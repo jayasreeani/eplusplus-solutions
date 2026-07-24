@@ -684,6 +684,69 @@ img { max-width: 100%; display: block; }
 
 .course-topics li { margin-bottom: 4px; }
 
+.course-syllabus {
+  margin: 16px 0 18px;
+  padding-top: 12px;
+  border-top: 1px solid #e8eef5;
+}
+
+.course-syllabus > h4 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.syllabus-semester {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.syllabus-semester:last-child {
+  margin-bottom: 0;
+}
+
+.syllabus-sem-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.syllabus-block {
+  margin-bottom: 10px;
+}
+
+.syllabus-block:last-child {
+  margin-bottom: 0;
+}
+
+.syllabus-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.syllabus-block ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.syllabus-block li {
+  margin-bottom: 3px;
+}
+
+.card-with-syllabus {
+  grid-column: 1 / -1;
+}
+
 .course-btn { padding: 10px 16px; font-size: 13px; }
 
 .course-grid { gap: 24px; }
@@ -716,6 +779,11 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(135deg, var(--primary-dark), var(--primary));
   color: #fff;
   border: none;
+}
+
+.cta-card h3,
+.cta-card p {
+  color: #fff;
 }
 
 .cta-card p { opacity: 0.92; margin-top: 8px; }
