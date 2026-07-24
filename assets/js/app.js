@@ -182,19 +182,21 @@ function syllabusHtml(syllabus) {
   return `
     <div class="course-syllabus">
       <h4>Syllabus</h4>
-      ${syllabus.map((sem) => `
-        <div class="syllabus-semester">
-          <p class="syllabus-sem-title">${sem.semester}</p>
-          <div class="syllabus-block">
-            <p class="syllabus-label">${sem.theory.label}</p>
-            <ul>${sem.theory.items.map((item) => `<li>${item}</li>`).join('')}</ul>
+      <div class="syllabus-grid">
+        ${syllabus.map((sem) => `
+          <div class="syllabus-semester">
+            <p class="syllabus-sem-title">${sem.semester}</p>
+            <div class="syllabus-block">
+              <p class="syllabus-label">${sem.theory.label}</p>
+              <ul>${sem.theory.items.map((item) => `<li>${item}</li>`).join('')}</ul>
+            </div>
+            <div class="syllabus-block">
+              <p class="syllabus-label">${sem.lab.label}</p>
+              <ul>${sem.lab.items.map((item) => `<li>${item}</li>`).join('')}</ul>
+            </div>
           </div>
-          <div class="syllabus-block">
-            <p class="syllabus-label">${sem.lab.label}</p>
-            <ul>${sem.lab.items.map((item) => `<li>${item}</li>`).join('')}</ul>
-          </div>
-        </div>
-      `).join('')}
+        `).join('')}
+      </div>
     </div>`;
 }
 
@@ -236,19 +238,34 @@ function campaignsSection() {
 
 function courseCard(c, i) {
   return `
-    <article class="card reveal${c.syllabus ? ' card-with-syllabus' : ''}" style="--delay:${i * 80}ms">
-      <span class="course-code">${c.code}</span>
-      <h3>${c.title}</h3>
-      <p>${c.desc}</p>
-      <div class="course-meta">
-        <span class="tag">${c.eligibility}</span>
-        <span class="tag">${c.duration}</span>
+    <article class="card course-card reveal${c.syllabus ? ' card-with-syllabus' : ''}" style="--delay:${i * 80}ms">
+      <div class="course-card-body">
+        <span class="course-code">${c.code}</span>
+        <h3 class="course-title">${c.title}</h3>
+        <p class="course-desc">${c.desc}</p>
+        <div class="course-meta">
+          <span class="tag">${c.eligibility}</span>
+          <span class="tag">${c.duration}</span>
+        </div>
+        ${c.syllabus
+          ? syllabusHtml(c.syllabus)
+          : `<ul class="course-topics">${c.topics.map((t) => `<li>${t}</li>`).join('')}</ul>`}
       </div>
-      ${c.syllabus
-        ? syllabusHtml(c.syllabus)
-        : `<ul class="course-topics">${c.topics.map((t) => `<li>${t}</li>`).join('')}</ul>`}
       <a href="#/contact" class="btn btn-primary btn-sm course-btn">Enquire Now</a>
     </article>`;
+}
+
+function courseGridHtml(courses, startIndex = 0) {
+  const featured = courses.filter((c) => c.syllabus);
+  const standard = courses.filter((c) => !c.syllabus);
+  let i = startIndex;
+  const featuredHtml = featured.map((c) => courseCard(c, i++)).join('');
+  const standardHtml = standard.map((c) => courseCard(c, i++)).join('');
+  return `
+    <div class="course-grid">
+      ${featuredHtml}
+      ${standard.length ? `<div class="course-grid-standard">${standardHtml}</div>` : ''}
+    </div>`;
 }
 
 function renderHome() {
@@ -313,9 +330,7 @@ function renderHome() {
           <h2>Flagship diploma programs</h2>
           <p>Government-recognized courses with practical lab training and project-based learning.</p>
         </div>
-        <div class="grid-3">
-          ${diplomaCourses.slice(0, 3).map((c, i) => courseCard(c, i)).join('')}
-        </div>
+        ${courseGridHtml(diplomaCourses.slice(0, 3))}
         <div style="text-align:center;margin-top:28px" class="reveal">
           <a href="#/courses" class="btn btn-secondary">View all courses →</a>
         </div>
@@ -389,9 +404,7 @@ function renderCourses() {
           <h2>Diploma & Certificate Courses</h2>
           <p>Structured programs with theory, lab, and project components — as per E+++ Solutions curriculum.</p>
         </div>
-        <div class="grid-2 course-grid">
-          ${diplomaCourses.map((c, i) => courseCard(c, i)).join('')}
-        </div>
+        ${courseGridHtml(diplomaCourses)}
         <div class="section-header reveal" style="margin-top:56px">
           <h2>More professional programs</h2>
           <p>We also provide a wide selection of job-oriented courses including:</p>
