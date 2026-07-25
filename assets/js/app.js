@@ -17,7 +17,7 @@ const institute = {
     city: 'Kozhikode (Calicut), Kerala 673002',
     landmark: 'Near Kozhikode Railway Station',
   },
-  phones: ['+91 94467 24270', '+91 94950 52932', '+91 77368 68688'],
+  phones: ['+91 94467 24270', '+91 94950 52932', '+91 77368 68688', '0495-3559628'],
   whatsapp: '919446724270',
   mapsUrl: 'https://maps.google.com/?q=Kajal+Building+Annie+Hall+Road+Palayam+Kozhikode+673002',
   hours: [
@@ -88,7 +88,7 @@ const diplomaCourses = [
   },
   {
     code: 'CTTC',
-    title: 'Diploma in Computer Teachers Training Course',
+    title: 'Diploma in Computer Teacher\'s Training Course',
     eligibility: '10th std passed & above',
     duration: '720 Hours (1 Year)',
     desc: 'Fundamental concepts of computers and programming with effective methodologies in teaching IT-based curricula and English practice sessions.',
@@ -104,7 +104,7 @@ const diplomaCourses = [
   },
   {
     code: 'CWPDE',
-    title: 'Certificate in Word Processing & Data Entry',
+    title: 'Certificate in Word Processing & Data Entry Operator',
     eligibility: '10th std passed & above',
     duration: '360 Hours (6 Months)',
     desc: 'Sharpens data entry skills through keyboard typing practice, then equips students with Word, Excel, PowerPoint and DTP skills.',
@@ -162,7 +162,9 @@ function hoursHtml(extraClass = '') {
 
 function phonesHtml() {
   return institute.phones.map((p) => {
-    const tel = p.replace(/\s/g, '').replace('+', '');
+    let tel = p.replace(/[\s-]/g, '');
+    if (tel.startsWith('+')) tel = tel.slice(1);
+    else if (tel.startsWith('0')) tel = '91' + tel.slice(1);
     return `<a href="tel:+${tel}" style="color:inherit">${p}</a>`;
   }).join('<br />');
 }
